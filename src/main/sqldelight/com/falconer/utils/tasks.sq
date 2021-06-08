@@ -1,0 +1,78 @@
+
+CREATE TABLE run_target_config(
+    target_config_id INTEGER PRIMARY KEY,
+    hostname TEXT NOT NULL,
+    ssl_cert_path TEXT NOT NULL
+);
+
+CREATE TABLE run_targets(
+    target_id INTEGER PRIMARY KEY,
+    computer_name TEXT NOT NULL,
+    target_config INTEGER NOT NULL,
+    FOREIGN KEY(target_config) REFERENCES run_target_config(target_config_id)
+);
+
+CREATE TABLE tasks (
+    task_id INTEGER PRIMARY KEY,
+    target_id INTEGER NOT NULL,
+    name TEXT NOT NULL,
+    display_order INTEGER,
+    runner_type TEXT NOT NULL,
+    user_script TEXT,
+    local_port INTEGER,
+    remote_port INTEGER,
+    monitor_process_pid INTEGER,
+    monitor_container_name TEXT,
+    FOREIGN KEY(target_id) REFERENCES run_targets(target_id)
+);
+
+-- INSERT INTO run_target_config(target_config_id, hostname, ssl_cert_path) VALUES(1,"localhost", "");
+-- INSERT INTO run_targets(target_id, computer_name, target_config) VALUES(1, "localhost", 1);
+
+
+getTasks:
+SELECT * FROM tasks;
+
+getRunTargets:
+SELECT * FROM run_targets;
+
+getRunTargetConfigs:
+SELECT * FROM run_target_config;
+
+addTask:
+INSERT INTO tasks(
+    task_id,
+    target_id,
+    name,
+    display_order,
+    runner_type,
+    user_script,
+    local_port,
+    remote_port,
+    monitor_process_pid,
+    monitor_container_name)
+VALUES(
+    ?,
+    ?,
+    ?,
+    ?,
+    ?,
+    ?,
+    ?,
+    ?,
+    ?,
+    ?);
+
+addRunTarget:
+INSERT INTO run_targets(
+    target_id,
+    computer_name,
+    target_config)
+VALUES(?,?,?);
+
+addRunTargetConfig:
+INSERT INTO run_target_config(
+    target_config_id,
+    hostname,
+    ssl_cert_path)
+VALUES(?, ?, ?);
