@@ -122,8 +122,8 @@ abstract class Runner(val name: String, val runnerType: RunnerType, val target: 
             .redirectError(ProcessBuilder.Redirect.PIPE)
             .start()
         process?.let { p ->
-            val pid = p.pid()
-            println("started process with PID=$pid")
+//            val pid = p.pid()
+//            println("started process with PID=$pid")
 
             val stdinStream = InputStreamReader(p.inputStream)
             val stdoutStream = OutputStreamWriter(p.outputStream)
@@ -134,7 +134,7 @@ abstract class Runner(val name: String, val runnerType: RunnerType, val target: 
 
             val errMuxer = StreamMuxer(stderrStream, logTail)
             errMuxer.start()
-            println("waiting for the process (PID=${process?.pid()}) to finish")
+//            println("waiting for the process (PID=${p.pid()}) to finish")
             var killTime = -1L
             while (p.isAlive) { // listen for the stop flag
                 try {
@@ -145,10 +145,10 @@ abstract class Runner(val name: String, val runnerType: RunnerType, val target: 
                 if (!isRunning.value) { // try to stop the process normally
                     if (killTime == -1L) {
                         killTime = System.currentTimeMillis()
-                        println("destroying the process for $name, PID=$pid")
+//                        println("destroying the process for $name, PID=$pid")
                         p.destroy()
                     } else if (System.currentTimeMillis() - killTime >= KILL_TIMEOUT_MS) { // been waiting too long, kill it!
-                        println("forcibly destroying the process for $name, PID=$pid")
+//                        println("forcibly destroying the process for $name, PID=$pid")
                         p.destroyForcibly()
                     }
                 }

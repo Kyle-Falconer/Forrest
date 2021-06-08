@@ -26,12 +26,8 @@ val sqlDelightVersion="1.5.0"
 dependencies {
     implementation(compose.desktop.currentOs)
 
-    // https://mvnrepository.com/artifact/commons-io/commons-io
-    implementation("commons-io:commons-io:2.9.0")
-
     // https://mvnrepository.com/artifact/com.fasterxml.jackson.module/jackson-module-kotlin
     implementation("com.fasterxml.jackson.module:jackson-module-kotlin:2.12.3")
-
 
 //    implementation("com.squareup.sqldelight:gradle-plugin:$sqlDelightVersion")
 //    implementation("com.squareup.sqldelight:sqlite-driver:$sqlDelightVersion")
@@ -52,7 +48,7 @@ dependencies {
 //}
 
 tasks.withType<KotlinCompile>() {
-    kotlinOptions.jvmTarget = "15"
+    kotlinOptions.jvmTarget = "11"
 }
 
 compose.desktop {

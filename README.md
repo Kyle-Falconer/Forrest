@@ -45,6 +45,5 @@ Development
 -----------
 This project was created using [JetBrains Compose for Desktop](https://www.jetbrains.com/lp/compose/).
 
-Tinkering can be done using IntelliJ and AdoptOpenJDK runtime version 15. Please note that Compose for Desktop is 
-still in alpha, so the version and vendor of the Java SDK appears to have some impact when packaging, so use 
-AdoptOpenJDK when possible.
+Tinkering can be done using IntelliJ and AdoptOpenJDK runtime version >=11. Please note that Compose for Desktop is 
+still in alpha. Development and testing was done using AdoptOpenJDK.
