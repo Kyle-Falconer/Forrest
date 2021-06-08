@@ -28,7 +28,7 @@ jobs:
       - uses: actions/setup-java@v2
         with:
           distribution: 'adopt'
-          java-version: '14'
+          java-version: '15'
           
       - name: Build main
         run: ./gradlew check
