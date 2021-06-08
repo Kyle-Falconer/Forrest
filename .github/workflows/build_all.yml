@@ -22,9 +22,14 @@ jobs:
 
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
+
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v2
-
+      - uses: actions/setup-java@v2
+        with:
+          distribution: 'adopt'
+          java-version: '14'
+          
       - name: Build main
         run: ./gradlew check
         
@@ -36,3 +41,10 @@ jobs:
       
       - name: Build .msi
         run: ./gradlew packageMsi
+        
+      - name: Release .dmg
+        uses: fnkr/github-action-ghr@v1
+        if: startsWith(github.ref, 'refs/tags/')
+        env:
+          GHR_PATH: build/compose/binaries/main/app/dmg
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
